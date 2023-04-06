@@ -1,0 +1,3 @@
+celery==5.2.7
+Django==3.2.4
+flower==1.2.0
