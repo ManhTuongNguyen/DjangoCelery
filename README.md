@@ -6,12 +6,20 @@
 ```sh
 celery -A TestCelery worker -l info
 ```
-Or using 
+if facing `ValueError: not enough values to unpack (expected 3, got 0)`
 ```
 celery -A TestCelery worker --pool=solo -l info
 ```
-if facing `ValueError: not enough values to unpack (expected 3, got 0)`
-
+Or using `Eventlet` as your execution pool
+```
+pip install eventlet
+celery -A TestCelery worker -l info -P eventlet
+```
+if `Eventlet` has an issue on subprocess.CalledProcessError. Try `gevent`
+```
+pip install gevent
+celery -A TestCelery worker -l info -P gevent
+```
 
 #### Use flower to see celery database
 ```sh
