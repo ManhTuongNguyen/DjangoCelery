@@ -30,28 +30,29 @@ celery -A TestCelery flower  --address=127.0.0.6 --port=5566 --persistent=True -
 ## To schedule task
 
 1. Define a function to schedule using `app.task` decorator
-  ```
-  from TestCelery.celery import app
-  
-  @app.task
-  def your_periodic_task():
-      # Your periodic task logic here
-      # This task will run at the specified interval
-      print("This is a periodic task.")
-  ```
+    ```
+    from TestCelery.celery import app
+    
+    @app.task
+    def your_periodic_task():
+        # Your periodic task logic here
+        # This task will run at the specified interval
+        print("This is a periodic task.")
+    ```
 
 2. Define the schedule for `your_periodic_task` using the `CELERY_BEAT_SCHEDULE` setting:
-  ```
-  from celery.schedules import crontab
-  
-  CELERY_BEAT_SCHEDULE = {
-      'your_periodic_task_name': {
-          'task': 'your_app_name.tasks.your_periodic_task',
-          'schedule': crontab(minute='*/1'),  # Schedule the task to run every minute
-      },
-  }
-  ```
+    ```
+    from celery.schedules import crontab
+    
+    CELERY_BEAT_SCHEDULE = {
+        'your_periodic_task_name': {
+            'task': 'your_app_name.tasks.your_periodic_task',
+            'schedule': crontab(minute='*/1'),  # Schedule the task to run every minute
+        },
+    }
+    ```
 3. Start celery beat
-  ```celery -A TestCelery.celery beat --loglevel=info```
 
-4. Start celery worker by following `Start celery worker` instruction.
+    ```celery -A TestCelery.celery beat --loglevel=info```
+
+5. Start celery worker by following `Start celery worker` instruction.
